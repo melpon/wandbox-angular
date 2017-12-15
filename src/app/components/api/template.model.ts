@@ -1,3 +1,3 @@
 export interface TemplateInfo {
-    code: string;
+  code: string;
 }

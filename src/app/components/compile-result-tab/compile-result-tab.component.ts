@@ -1,64 +1,67 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CompileResultModel, ShareResultModel } from '../compile/compile.model';
-import { RunCompileService } from '../common/run-compile.service';
-import { } from './compiler-result.model';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { RunCompileService } from "../common/run-compile.service";
+import { CompileResultModel, ShareResultModel } from "../compile/compile.model";
+import {} from "./compiler-result.model";
 
 @Component({
-    selector: 'compile-result-tab',
-    templateUrl: './compile-result-tab.component.html',
-    styleUrls: ['./compile-result-tab.component.css']
+  selector: "compile-result-tab",
+  templateUrl: "./compile-result-tab.component.html",
+  styleUrls: ["./compile-result-tab.component.css"]
 })
 export class CompileResultTabComponent {
+  @Input() public results: CompileResultModel[];
+  @Output() public changeTab = new EventEmitter<number>();
+  @Output() public removeTab = new EventEmitter<number>();
 
-    @Input() results: Array<CompileResultModel>;
-    @Output() changeTab = new EventEmitter<number>();
-    @Output() removeTab = new EventEmitter<number>();
+  @Input() public activeIndex: number;
 
-    @Input() activeIndex: number;
+  private emptyTab = new CompileResultModel();
 
-    private emptyTab = new CompileResultModel();
+  get selectedResult() {
+    return this.results[this.activeIndex] || this.emptyTab;
+  }
 
-    get selectedResult() {
-        return this.results[this.activeIndex] || this.emptyTab;
+  constructor(private compileService: RunCompileService) {
+    this.emptyTab.tabs = [];
+    // this.compileService.executeCompile().subscribe(v => {
+    //     this.activeIndex = this.results.length - 1;
+    // });
+  }
+
+  public activationSourceTab(index: number) {
+    this.selectedResult.activeSourceTabIndex = index;
+  }
+
+  public activationResultTab(index: number) {
+    this.changeTab.emit(index);
+  }
+
+  public clickRemoveTab(index: number) {
+    this.removeTab.emit(index);
+    if (this.activeIndex >= this.results.length) {
+      this.activationResultTab(this.results.length - 1);
     }
+    console.log(this.activeIndex);
+  }
 
-    constructor(private compileService: RunCompileService) {
-        this.emptyTab.tabs = [];
-        // this.compileService.executeCompile().subscribe(v => {
-        //     this.activeIndex = this.results.length - 1;
-        // });
+  public onShare() {
+    if (
+      !this.selectedResult.resultFetched ||
+      this.selectedResult.shareResult != null
+    ) {
+      return;
     }
-
-    activationSourceTab(index: number) {
-        this.selectedResult.activeSourceTabIndex = index;
-    }
-
-    activationResultTab(index: number) {
-        this.changeTab.emit(index);
-    }
-
-    clickRemoveTab(index: number) {
-        this.removeTab.emit(index);
-        if (this.activeIndex >= this.results.length) {
-            this.activationResultTab(this.results.length - 1);
-        }
-        console.log(this.activeIndex);
-    }
-
-    onShare() {
-        if (!this.selectedResult.resultFetched || this.selectedResult.shareResult != null) {
-            return;
-        }
-        this.selectedResult.shareResult = new ShareResultModel();
-        this.compileService.run$(
-            this.selectedResult.stdin,
-            this.selectedResult.tabs,
-            this.selectedResult.languageInfo,
-            true
-        ).subscribe(res => {
-            this.selectedResult.shareResult.url = res.permlink;
-            this.selectedResult.shareResult.isFetched = true;
-        });
-    }
-
+    this.selectedResult.shareResult = new ShareResultModel();
+    this.compileService
+      .run$(
+        this.selectedResult.stdin,
+        this.selectedResult.tabs,
+        this.selectedResult.languageInfo,
+        true
+      )
+      .subscribe(res => {
+        this.selectedResult.shareResult.url = res.permlink;
+        this.selectedResult.shareResult.isFetched = true;
+      });
+  }
 }

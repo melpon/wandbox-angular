@@ -3,7 +3,7 @@
         <ul class="nav nav-tabs">
             <li *ngFor="let result of results; let i=index;" [class.active]="i === activeIndex" (click)="activationResultTab(i)">
                 <button type="button" class="close" (click)="clickRemoveTab(i)">×</button>
-                <a data-toggle="tab">#{{result.tabName}}</a>
+                <a data-toggle="tab">#{{ result.tabName }}</a>
             </li>
         </ul>
     </div>
@@ -31,7 +31,7 @@
                         <div class="panel-body">
                             <div class="wandbox-resultwindow-compiler">
                                 <div>
-                                    <p>[{{selectedResult.languageName}}] {{selectedResult.compilerName}}</p>
+                                    <p>[{{ selectedResult.languageName }}] {{ selectedResult.compilerName }}</p>
                                 </div>
                             </div>
                             <div class="wandbox-resultwindow-code" *ngIf="selectedResult.resultFetched">
@@ -39,18 +39,18 @@
                                     <li *ngFor="let tab of selectedResult.tabs; let i=index;" [class.active]="selectedResult.activeSourceTabIndex === i" (click)="activationSourceTab(i)">
                                         <a class="" href="#wandbox-resultwindow-code-body-1-0" role="tab" data-toggle="tab">
                                             <i class="glyphicon glyphicon-file"></i>
-                                            <span *ngIf="i !== 0">{{tab.fileName}}</span>
+                                            <span *ngIf="i !== 0">{{ tab.fileName }}</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
                                     <div id="wandbox-resultwindow-code-body" role="tabpanel" class="tab-pane active">
-                                        <pre>{{selectedResult.activeTab.editorContent}}</pre>
+                                        <pre>{{ selectedResult.activeTab.editorContent }}</pre>
                                     </div>
                                 </div>
                             </div>
                             <div class="wandbox-resultwindow-stdin">
-                                <pre>{{selectedResult.stdin}}</pre>
+                                <pre>{{ selectedResult.stdin }}</pre>
                             </div>
                         </div>
                     </div>
@@ -59,14 +59,14 @@
             <div class="output-window" *ngIf="selectedResult != null">
 
                 <ng-container *ngIf="selectedResult.eventSource">
-                    <pre *ngFor="let line of selectedResult.outputLines" class="{{line.type}}">{{line.message}}</pre>
+                    <pre *ngFor="let line of selectedResult.outputLines" class="{{line.type}}">{{ line.message }}</pre>
                 </ng-container>
                 <ng-container *ngIf="!selectedResult.eventSource">
                     <!-- <pre class="Control">Start</pre> -->
-                    <pre class="CompilerMessageE">{{selectedResult.compilerErrorMessage}}</pre>
-                    <pre class="StdOut">{{selectedResult.programOutout}}</pre>
-                    <pre class="Signal">{{selectedResult.signalMessage}}</pre>
-                    <pre class="ExitCode" *ngIf="selectedResult.status !== -1">{{selectedResult.status}}</pre>
+                    <pre class="CompilerMessageE">{{ selectedResult.compilerErrorMessage }}</pre>
+                    <pre class="StdOut">{{ selectedResult.programOutout }}</pre>
+                    <pre class="Signal">{{ selectedResult.signalMessage }}</pre>
+                    <pre class="ExitCode" *ngIf="selectedResult.status !== -1">{{ selectedResult.status }}</pre>
                     <!-- <pre class="Control">Finish</pre> -->
                 </ng-container>
             </div>

@@ -1,17 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CompileResultTabComponent } from './compile-result-tab.component';
+import { CompileResultTabComponent } from "./compile-result-tab.component";
 
-describe('CompileResultTabComponent', () => {
+describe("CompileResultTabComponent", () => {
   let component: CompileResultTabComponent;
   let fixture: ComponentFixture<CompileResultTabComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ CompileResultTabComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [CompileResultTabComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CompileResultTabComponent);
@@ -19,7 +20,7 @@ describe('CompileResultTabComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

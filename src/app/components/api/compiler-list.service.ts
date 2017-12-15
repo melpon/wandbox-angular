@@ -1,18 +1,21 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import "rxjs/add/operator/map";
+import { Observable } from "rxjs/Observable";
 
-import { CompilerInfo } from './compiler-list.model';
-import { LanguageModel, CompilerModel, OptionType } from '../compiler/compiler.model';
-import { environment } from '../../../environments/environment';
+import { environment } from "../../../environments/environment";
+import {
+  CompilerModel,
+  LanguageModel,
+  OptionType
+} from "../compiler/compiler.model";
+import { CompilerInfo } from "./compiler-list.model";
 
 @Injectable()
 export class CompilerListAPIService {
+  constructor(private http: HttpClient) {}
 
-    constructor(private http: HttpClient) { }
-
-    fetch$(): Observable<Array<CompilerInfo>> {
-        return this.http.get(environment.baseApiUrl + 'list.json') as any;
-    }
+  public fetch$(): Observable<CompilerInfo[]> {
+    return this.http.get(environment.baseApiUrl + "list.json") as any;
+  }
 }

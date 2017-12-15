@@ -42,7 +42,7 @@
     <div class="col-md-12">
         <p id="compile_command">
             <code *ngIf="model.selectedLanguage != null && model.selectedLanguage.selectedCompiler != null">
-                $ {{model.selectedLanguage.selectedCompiler.compileCommand}} {{model.selectedLanguage.selectedCompiler.displayFlags}}
+                $ {{ model.selectedLanguage.selectedCompiler.compileCommand }} {{ model.selectedLanguage.selectedCompiler.displayFlags }}
             </code>
         </p>
     </div>

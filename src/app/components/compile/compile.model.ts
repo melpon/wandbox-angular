@@ -1,55 +1,55 @@
-import { TabModel } from '../editor-tab/editor-tab.model';
-import { LanguageModel } from '../compiler/compiler.model';
+import { LanguageModel } from "../compiler/compiler.model";
+import { TabModel } from "../editor-tab/editor-tab.model";
 
 export class CompileResultModel {
-    tabName: string;
-    languageInfo: LanguageModel;
-    stdin: string;
-    tabs: Array<TabModel>;
-    activeSourceTabIndex = 0;
-    programOutout: string;
-    programMessage: string;
-    programErrorMessage: string;
-    compilerErrorMessage: string;
-    signalMessage: string;
-    status: number;
+  public tabName: string;
+  public languageInfo: LanguageModel;
+  public stdin: string;
+  public tabs: TabModel[];
+  public activeSourceTabIndex = 0;
+  public programOutout: string;
+  public programMessage: string;
+  public programErrorMessage: string;
+  public compilerErrorMessage: string;
+  public signalMessage: string;
+  public status: number;
 
-    eventSource: boolean;
-    outputLines: Array<EventOutput> = [];
+  public eventSource: boolean;
+  public outputLines: EventOutput[] = [];
 
-    showCode: boolean;
-    resultFetched = false;
+  public showCode: boolean;
+  public resultFetched = false;
 
-    shareResult: ShareResultModel = null;
+  public shareResult: ShareResultModel = null;
 
-    get languageName() {
-        return this.languageInfo.languageName;
-    }
+  get languageName() {
+    return this.languageInfo.languageName;
+  }
 
-    get compilerName() {
-        const c = this.languageInfo.selectedCompiler;
-        return c ? c.displayName + ' ' + c.version : '';
-    }
+  get compilerName() {
+    const c = this.languageInfo.selectedCompiler;
+    return c ? c.displayName + " " + c.version : "";
+  }
 
-    get activeTab() {
-        return this.tabs[this.activeSourceTabIndex];
-    }
+  get activeTab() {
+    return this.tabs[this.activeSourceTabIndex];
+  }
 }
 
 export class CompileComponentModel {
-    compileResults = new Array<CompileResultModel>();
-    activeResultIndex = -1;
-    compiling = false;
-    enableEventSource = false;
-    compileCount = 0;
+  public compileResults = new Array<CompileResultModel>();
+  public activeResultIndex = -1;
+  public compiling = false;
+  public enableEventSource = false;
+  public compileCount = 0;
 }
 
 export class ShareResultModel {
-    isFetched = false;
-    url: string;
+  public isFetched = false;
+  public url: string;
 }
 
 export class EventOutput {
-    type: string;
-    message: string;
+  public type: string;
+  public message: string;
 }

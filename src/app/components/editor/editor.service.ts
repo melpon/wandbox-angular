@@ -1,29 +1,29 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs/Subject";
 
 @Injectable()
 export class EditorService {
-    private changeConfigSubject = new Subject<ChangeConfigEvent>();
-    private changeEditorSubject = new Subject<string>();
+  private changeConfigSubject = new Subject<ChangeConfigEvent>();
+  private changeEditorSubject = new Subject<string>();
 
-    get changeConfig$() {
-        return this.changeConfigSubject.asObservable();
-    }
+  get changeConfig$() {
+    return this.changeConfigSubject.asObservable();
+  }
 
-    changeConfigNext$(eventValue: ChangeConfigEvent) {
-        this.changeConfigSubject.next(eventValue);
-    }
+  public changeConfigNext$(eventValue: ChangeConfigEvent) {
+    this.changeConfigSubject.next(eventValue);
+  }
 
-    get changeEditorTab$() {
-        return this.changeEditorSubject.asObservable();
-    }
+  get changeEditorTab$() {
+    return this.changeEditorSubject.asObservable();
+  }
 
-    changeEditorTabNext(value: string) {
-        this.changeEditorSubject.next(value);
-    }
+  public changeEditorTabNext(value: string) {
+    this.changeEditorSubject.next(value);
+  }
 }
 
 interface ChangeConfigEvent {
-    name: string;
-    value: string | number | boolean;
+  name: string;
+  value: string | number | boolean;
 }

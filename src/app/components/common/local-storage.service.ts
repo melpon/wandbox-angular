@@ -1,25 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class LocalStorageService {
+  private storage = localStorage;
 
-    private storage = localStorage;
+  constructor() {}
 
-    constructor() { }
+  public getValue(key: string) {
+    return JSON.parse(this.storage.getItem(key));
+  }
 
-    public getValue(key: string) {
-        return JSON.parse(this.storage.getItem(key));
-    }
+  public setValue<T>(key: string, value: T) {
+    this.storage.setItem(key, JSON.stringify(value));
+  }
 
-    public setValue<T>(key: string, value: T) {
-        this.storage.setItem(key, JSON.stringify(value));
-    }
+  public removeValue(key: string) {
+    this.storage.setItem(key, null);
+  }
 
-    public removeValue(key: string) {
-        this.storage.setItem(key, null);
-    }
-
-    public hasValue(key: string) {
-        return this.getValue(key) != null;
-    }
+  public hasValue(key: string) {
+    return this.getValue(key) != null;
+  }
 }
