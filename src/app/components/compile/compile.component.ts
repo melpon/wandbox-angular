@@ -11,13 +11,13 @@ import { PermlinkService } from "../api/permlink.service";
 import { RunCompileService } from "../common/run-compile.service";
 import { CompileResultTabComponent } from "../compile-result-tab/compile-result-tab.component";
 import { LanguageModel } from "../compiler/compiler.model";
-import { TabChangedEvent, TabModel } from "../editor-tab/editor-tab.model";
+import { ITabChangedEvent, TabModel } from "../editor-tab/editor-tab.model";
 import { CompileComponentModel, CompileResultModel } from "./compile.model";
 
 @Component({
-  selector: "wandbox-compile",
-  templateUrl: "./compile.component.html",
-  styleUrls: ["./compile.component.css"]
+  selector: "sg-wandbox-compile",
+  styleUrls: ["./compile.component.css"],
+  templateUrl: "./compile.component.html"
 })
 export class CompileComponent {
   @Output() public compile = new EventEmitter();
@@ -116,8 +116,8 @@ export class CompileComponent {
               case "error":
               case "exception":
                 result.outputLines.push({
-                  type: "Control",
-                  message: "Finish"
+                  message: "Finish",
+                  type: "Control"
                 });
                 result.resultFetched = true;
                 this.model.compiling = false;
@@ -126,8 +126,8 @@ export class CompileComponent {
 
               case "message":
                 result.outputLines.push({
-                  type: event.messageType,
-                  message: event.payload
+                  message: event.payload,
+                  type: event.messageType
                 });
                 break;
             }

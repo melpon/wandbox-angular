@@ -6,56 +6,56 @@ import { Observer } from "rxjs/Observer";
 import { Subject } from "rxjs/Subject";
 
 import { environment } from "../../../environments/environment";
-import { PermlinkResponse } from "./permlink.model";
+import { IPermlinkResponse } from "./permlink.model";
 
 @Injectable()
 export class PermlinkService {
-  private _fetching = false;
-  private _resultCache: PermlinkResponse = null;
-  private _fetchObserver: Observable<PermlinkResponse> = null;
+  private fetching = false;
+  private resultCache: IPermlinkResponse = null;
+  private fetchObserver: Observable<IPermlinkResponse> = null;
 
-  private _linkId: string;
+  private linkId: string;
 
-  private subject = new Subject<PermlinkResponse>();
+  private subject = new Subject<IPermlinkResponse>();
 
   constructor(
     private http: HttpClient // , private route: ActivatedRoute
   ) {
     const match = location.href.match(/.*\/permlink\/(.*)\/?/);
     if (match && match.length) {
-      this._linkId = match[1];
+      this.linkId = match[1];
     } else {
-      this._linkId = "";
+      this.linkId = "";
     }
   }
 
   get requested() {
-    return this._linkId.length > 0;
+    return this.linkId.length > 0;
   }
 
   /**
    * Check permlink id in url.
    *
    * @readonly
-   * @type {Observable<PermlinkResponse>}
+   * @type {Observable<IPermlinkResponse>}
    * @memberof PermlinkService
    */
-  public get checkPermlink$(): Observable<PermlinkResponse> {
-    if (!this._fetching && this.requested) {
-      if (this._resultCache != null) {
+  public get checkPermlink$(): Observable<IPermlinkResponse> {
+    if (!this.fetching && this.requested) {
+      if (this.resultCache != null) {
         console.log("[PermlinkService]", "cache subscribe");
-        this.subject.next(this._resultCache);
+        this.subject.next(this.resultCache);
       } else {
-        this._fetching = true;
+        this.fetching = true;
         console.log("[PermlinkService]", "fetch permlink");
         this.http
-          .get<PermlinkResponse>(
-            environment.baseApiUrl + "permlink/" + this._linkId
+          .get<IPermlinkResponse>(
+            environment.baseApiUrl + "permlink/" + this.linkId
           )
           .subscribe(
             res => {
-              this._resultCache = res;
-              this._fetching = false;
+              this.resultCache = res;
+              this.fetching = false;
               console.log("[PermlinkService]", "subscribe permlink");
               this.subject.next(res);
               this.subject.complete();

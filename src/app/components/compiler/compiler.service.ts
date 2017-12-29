@@ -3,29 +3,27 @@ import "rxjs/add/operator/mergeMap";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 
-import { CompilerInfo } from "../api/compiler-list.model";
+import { ICompilerInfo } from "../api/compiler-list.model";
 import { CompilerListAPIService } from "../api/compiler-list.service";
 import { TemplateAPIService } from "../api/template.service";
 import { LanguageModel } from "../compiler/compiler.model";
 
 @Injectable()
 export class CompilerService {
+  private compilerSubject = new Subject<ICompilerInfo>();
+  private languageSubject = new Subject<LanguageModel>();
+  private loadTemplateSubject = new Subject<string>();
+
   constructor(
     private listApi: CompilerListAPIService,
     private templateApi: TemplateAPIService
   ) {}
 
-  private compilerSubject = new Subject<CompilerInfo>();
-
-  private languageSubject = new Subject<LanguageModel>();
-
-  private loadTemplateSubject = new Subject<string>();
-
   public get selectedCompiler$() {
     return this.compilerSubject.asObservable();
   }
 
-  public selectedCompilerNext(compiler: CompilerInfo) {
+  public selectedCompilerNext(compiler: ICompilerInfo) {
     this.compilerSubject.next(compiler);
   }
 

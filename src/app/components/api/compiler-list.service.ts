@@ -9,13 +9,13 @@ import {
   LanguageModel,
   OptionType
 } from "../compiler/compiler.model";
-import { CompilerInfo } from "./compiler-list.model";
+import { ICompilerInfo } from "./compiler-list.model";
 
 @Injectable()
 export class CompilerListAPIService {
   constructor(private http: HttpClient) {}
 
-  public fetch$(): Observable<CompilerInfo[]> {
+  public fetch$(): Observable<ICompilerInfo[]> {
     return this.http.get(environment.baseApiUrl + "list.json") as any;
   }
 }

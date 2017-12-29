@@ -54,10 +54,10 @@ export class EditorComponentModel {
   }
 
   get tabWidth() {
-    return this._tabWidth;
+    return this.tabWidthValue;
   }
   set tabWidth(value: number) {
-    this._tabWidth = value;
+    this.tabWidthValue = value;
   }
 
   get expand() {
@@ -67,7 +67,7 @@ export class EditorComponentModel {
     this.config.expand = value;
   }
 
-  private _tabWidth = 4;
+  private tabWidthValue = 4;
 }
 
 export class EditorConfigModel {

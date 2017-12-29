@@ -1,6 +1,6 @@
 export const environment = {
-  production: true,
+  DEFAULT_COMPILER: "gcc-head",
   baseApiUrl: "https://wandbox.org/api/",
   baseUrl: "https://wandbox.org/",
-  DEFAULT_COMPILER: "gcc-head"
+  production: true
 };

@@ -1,4 +1,4 @@
-export interface CompilerInfo {
+export interface ICompilerInfo {
   "compiler-option-raw": boolean;
   "runtime-option-raw": boolean;
   "display-compile-command": string;
@@ -8,22 +8,22 @@ export interface CompilerInfo {
   provider: number;
   templates: string[];
   version: string;
-  switches: CompilerFlagInfo[] | CompilerFlagSelectionInfo[];
+  switches: ICompilerFlagInfo[] | ICompilerFlagSelectionInfo[];
 }
 
-export interface CompilerFlagInfo {
+export interface ICompilerFlagInfo {
   default: boolean;
   name: string;
   "display-flags": string;
   "display-name": string;
 }
 
-export interface CompilerFlagSelectionInfo {
+export interface ICompilerFlagSelectionInfo {
   default: string;
-  options: CompilerFlagSelectionItemInfo[];
+  options: ICompilerFlagSelectionItemInfo[];
 }
 
-export interface CompilerFlagSelectionItemInfo {
+export interface ICompilerFlagSelectionItemInfo {
   name: string;
   "display-flags": string;
   "display-name": string;

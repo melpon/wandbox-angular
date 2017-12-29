@@ -27,16 +27,6 @@ import { CompilerService } from "./components/compiler/compiler.service";
 @NgModule({
   // bootstrap: [RouterRootComponent],
   bootstrap: [AppComponent],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule
-    // configuration app routing.
-    // RouterModule.forRoot([
-    //     { path: 'permlink/:id', component: AppComponent },
-    //     { path: '', component: AppComponent, pathMatch: 'full' },
-    // ]),
-  ],
   declarations: [
     // RouterRootComponent,
     AppComponent,
@@ -50,6 +40,16 @@ import { CompilerService } from "./components/compiler/compiler.service";
     CompileResultTabComponent
   ],
   exports: [],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule
+    // configuration app routing.
+    // RouterModule.forRoot([
+    //     { path: 'permlink/:id', component: AppComponent },
+    //     { path: '', component: AppComponent, pathMatch: 'full' },
+    // ]),
+  ],
   providers: [
     TemplateAPIService,
     CompilerListAPIService,

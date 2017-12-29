@@ -1,5 +1,3 @@
-/// <reference path='../../../../node_modules/@types/codemirror/index.d.ts' />
-
 declare let CodeMirror;
 
 import {
@@ -16,7 +14,7 @@ import { EditorConfigModel } from "../editor/editor.model";
 import { EditorService } from "../editor/editor.service";
 
 @Component({
-  selector: "wandbox-codemirror",
+  selector: "sg-wandbox-codemirror",
   styleUrls: ["./wb-codemirror.component.css"],
   template: `
         <div class="wandbox-codemirror-container" [class.expand]="config.expand">
@@ -84,6 +82,18 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
 
     // definition shortcut key.
     this.codemirror.setOption("extraKeys", {
+      "Cmd-Enter": cm => {
+        this.compileCommand.emit();
+      },
+      "Ctrl-Enter": cm => {
+        this.compileCommand.emit();
+      },
+      "Ctrl-Shift-T": cm => {
+        console.log("hogehoge");
+      },
+      "Shift-Tab": cm => {
+        cm.execCommand("indentLess");
+      },
       Tab: cm => {
         if (cm.somethingSelected()) {
           cm.execCommand("indentMore");
@@ -97,18 +107,6 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
           const spaces = Array(cm.getOption("tabSize") + 1).join(" ");
           cm.replaceSelection(spaces, "end", "+input");
         }
-      },
-      "Shift-Tab": cm => {
-        cm.execCommand("indentLess");
-      },
-      "Ctrl-Enter": cm => {
-        this.compileCommand.emit();
-      },
-      "Cmd-Enter": cm => {
-        this.compileCommand.emit();
-      },
-      "Ctrl-Shift-T": cm => {
-        console.log("hogehoge");
       }
     });
     this.codemirror.refresh();

@@ -2,7 +2,7 @@ import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 
 export class PostEventSource {
-  private subject = new Subject<Action>();
+  private subject = new Subject<IAction>();
   private data: string[] = [];
   private chache = "";
   private lastEventId: string = null;
@@ -15,7 +15,7 @@ export class PostEventSource {
     return this.subject.asObservable();
   }
 
-  public post(request: Object) {
+  public post(request: object) {
     try {
       this.chache = "";
       const xhr = new XMLHttpRequest();
@@ -71,10 +71,10 @@ export class PostEventSource {
                 const [type] = messagePart.splice(0, 1);
                 const message = messagePart.join();
                 this.subject.next({
-                  type: "message",
-                  messageType: type,
                   lastEventId: this.lastEventId,
-                  payload: message
+                  messageType: type,
+                  payload: message,
+                  type: "message"
                 });
                 this.data = [];
                 eventType = "message";
@@ -135,7 +135,7 @@ enum EV_READY_STATE {
   ERROR
 }
 
-export interface Action {
+export interface IAction {
   type: string;
   error?: any;
   messageType?: string;

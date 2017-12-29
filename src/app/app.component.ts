@@ -3,11 +3,9 @@ import { Observable } from "rxjs/Observable";
 import { RunCompileService } from "./components/common/run-compile.service";
 
 @Component({
-  selector: "app-wandbox",
-  templateUrl: "./app.component.html",
+  providers: [RunCompileService],
+  selector: "sg-app-wandbox",
   styleUrls: ["./app.component.css"],
-  providers: [RunCompileService]
+  templateUrl: "./app.component.html"
 })
-export class AppComponent {
-  constructor() {}
-}
+export class AppComponent {}

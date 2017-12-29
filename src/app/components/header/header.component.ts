@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "wandbox-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.css"]
+  selector: "sg-wandbox-header",
+  styleUrls: ["./header.component.css"],
+  templateUrl: "./header.component.html"
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
-
-  public ngOnInit() {}
+  public ngOnInit() {
+    return undefined;
+  }
 }

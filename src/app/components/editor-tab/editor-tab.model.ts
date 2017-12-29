@@ -5,7 +5,7 @@ export class TabModel {
   public editorContent: string;
 }
 
-export interface TabChangedEvent {
+export interface ITabChangedEvent {
   index: number;
   data: TabModel;
 }

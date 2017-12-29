@@ -1,16 +1,16 @@
-import { CodeListModel, CompileResponse } from "./compile.model";
-import { CompilerInfo } from "./compiler-list.model";
+import { ICodeListModel, ICompileResponse } from "./compile.model";
+import { ICompilerInfo } from "./compiler-list.model";
 
-export interface PermlinkResponse {
-  parameter: Parameter;
-  result: CompileResponse;
+export interface IPermlinkResponse {
+  parameter: IParameter;
+  result: ICompileResponse;
 }
 
-export interface Parameter {
+export interface IParameter {
   code: string;
-  codes?: CodeListModel[];
+  codes?: ICodeListModel[];
   compiler: string;
-  "compiler-info": CompilerInfo;
+  "compiler-info": ICompilerInfo;
   "compiler-option-raw": string;
   description: string;
   created_at: number;

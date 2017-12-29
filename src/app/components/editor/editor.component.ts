@@ -10,15 +10,15 @@ import { RunCompileService } from "../common/run-compile.service";
 import { CompileComponent } from "../compile/compile.component";
 import { LanguageModel } from "../compiler/compiler.model";
 import { CompilerService } from "../compiler/compiler.service";
-import { TabChangedEvent, TabModel } from "../editor-tab/editor-tab.model";
+import { ITabChangedEvent, TabModel } from "../editor-tab/editor-tab.model";
 import { EditorComponentModel } from "./editor.model";
 import { EditorService } from "./editor.service";
 
 @Component({
-  selector: "wandbox-editor",
-  templateUrl: "./editor.component.html",
+  providers: [EditorService],
+  selector: "sg-wandbox-editor",
   styleUrls: ["./editor.component.css"],
-  providers: [EditorService]
+  templateUrl: "./editor.component.html"
 })
 export class EditorComponent implements OnInit {
   @ViewChild(CompileComponent) public compileComponent: CompileComponent;
@@ -116,10 +116,10 @@ export class EditorComponent implements OnInit {
   /**
    * Detection changed tab.
    *
-   * @param {TabChangedEvent} event
+   * @param {ITabChangedEvent} event
    * @memberof EditorComponent
    */
-  public tabChanged(event: TabChangedEvent) {
+  public tabChanged(event: ITabChangedEvent) {
     this.model.activeTabIndex = event.index;
     this.model.tabs[this.model.activeTabIndex].editorContent =
       event.data.editorContent;

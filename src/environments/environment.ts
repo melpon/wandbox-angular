@@ -4,8 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
+  DEFAULT_COMPILER: "gcc-head",
   baseApiUrl: "https://wandbox.org/api/",
   baseUrl: "https://wandbox.org/",
-  production: false,
-  DEFAULT_COMPILER: "gcc-head"
+  production: false
 };

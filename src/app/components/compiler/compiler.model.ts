@@ -1,7 +1,7 @@
 import {
-  CompilerFlagInfo,
-  CompilerFlagSelectionInfo,
-  CompilerInfo
+  ICompilerFlagInfo,
+  ICompilerFlagSelectionInfo,
+  ICompilerInfo
 } from "../api/compiler-list.model";
 
 export class LanguageModel {
@@ -14,11 +14,11 @@ export class LanguageModel {
     return this.compilers[this.selectedCompilerIndex];
   }
 
-  public addable(compiler: CompilerInfo) {
+  public addable(compiler: ICompilerInfo) {
     return this.languageName === compiler.language;
   }
 
-  public addCompiler(compiler: CompilerInfo) {
+  public addCompiler(compiler: ICompilerInfo) {
     const result = new CompilerModel();
     result.name = compiler.name;
     result.displayName = compiler["display-name"];
@@ -29,22 +29,22 @@ export class LanguageModel {
     for (const flag of compiler.switches) {
       const option = new CompilerOptionModel();
       if (typeof flag.default === "boolean") {
-        const compilerFlag = flag as CompilerFlagInfo;
+        const compilerFlag = flag as ICompilerFlagInfo;
         option.type = "checkbox";
         option.item = {
-          name: compilerFlag["display-name"],
-          value: compilerFlag.name,
           checked: compilerFlag.default,
-          displayFlag: compilerFlag["display-flags"]
+          displayFlag: compilerFlag["display-flags"],
+          name: compilerFlag["display-name"],
+          value: compilerFlag.name
         };
       } else {
-        const selectionFlag = flag as CompilerFlagSelectionInfo;
+        const selectionFlag = flag as ICompilerFlagSelectionInfo;
         option.type = "select";
         option.item = {
-          name: "",
           displayFlags: selectionFlag.options.map(v => v["display-flags"]),
-          value: selectionFlag.default,
+          name: "",
           names: selectionFlag.options.map(v => v["display-name"]),
+          value: selectionFlag.default,
           values: selectionFlag.options.map(v => v.name)
         };
       }
@@ -53,21 +53,21 @@ export class LanguageModel {
 
     if (compiler["compiler-option-raw"]) {
       result.options.push({
-        type: "compile",
         item: {
           name: "Compiler options",
           value: ""
-        }
+        },
+        type: "compile"
       });
     }
 
     // if (compiler['runtime-option-raw']) {
     result.options.push({
-      type: "runtime",
       item: {
         name: "Runtime options",
         value: ""
-      }
+      },
+      type: "runtime"
     });
     // }
     this.compilers.push(result);
@@ -90,12 +90,12 @@ export class CompilerModel {
         .filter(
           v =>
             (v.type === "compile" && v.item.value.length > 0) ||
-            (v.type === "checkbox" && (v.item as CheckboxOption).checked) ||
+            (v.type === "checkbox" && (v.item as ICheckboxOption).checked) ||
             v.type === "select"
         )
         .map(v => {
           if (v.type === "select") {
-            const selectItem = v.item as SelectBoxOption;
+            const selectItem = v.item as ISelectBoxOption;
             const index = selectItem.values.findIndex(
               item => item === selectItem.value
             );
@@ -117,28 +117,28 @@ export class CompilerModel {
 
 export class CompilerOptionModel {
   public type: "checkbox" | "select" | "runtime" | "compile";
-  public item: CheckboxOption | SelectBoxOption | TextAreaOption;
+  public item: ICheckboxOption | ISelectBoxOption | TextAreaOption;
 }
 
-export interface OptionItem {
+export interface IOptionItem {
   name: string;
   value: string;
   displayFlag?: string;
 }
 
-export interface CheckboxOption extends OptionItem {
+export interface ICheckboxOption extends IOptionItem {
   checked: boolean;
 }
 
-export type TextAreaOption = OptionItem;
+export type TextAreaOption = IOptionItem;
 
-export interface SelectBoxOption extends OptionItem {
+export interface ISelectBoxOption extends IOptionItem {
   names: string[];
   values: string[];
   displayFlags: string[];
 }
 
-export type OptionType = CheckboxOption | SelectBoxOption | TextAreaOption;
+export type OptionType = ICheckboxOption | ISelectBoxOption | TextAreaOption;
 
 export class CompilerComponentModel {
   public selectedLangIndex = 0;

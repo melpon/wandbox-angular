@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { environment } from "../../../environments/environment";
-import { CompilerInfo } from "../api/compiler-list.model";
+import { ICompilerInfo } from "../api/compiler-list.model";
 import { PermlinkService } from "../api/permlink.service";
 import { LocalStorageService } from "../common/local-storage.service";
 import {
@@ -13,9 +13,9 @@ import {
 import { CompilerService } from "./compiler.service";
 
 @Component({
-  selector: "wandbox-compiler",
-  templateUrl: "./compiler.component.html",
-  styleUrls: ["./compiler.component.css"]
+  selector: "sg-wandbox-compiler",
+  styleUrls: ["./compiler.component.css"],
+  templateUrl: "./compiler.component.html"
 })
 export class CompilerComponent {
   public model = new CompilerComponentModel();
@@ -32,13 +32,13 @@ export class CompilerComponent {
     this.service.fetchCompilerList$.subscribe(
       compilerList => {
         const languageDic: { [key: string]: LanguageModel } = {};
-        for (let i = 0; i < compilerList.length; ++i) {
-          const languageName = compilerList[i].language;
+        for (const compiler of compilerList) {
+          const languageName = compiler.language;
           if (languageDic[languageName] == null) {
             languageDic[languageName] = new LanguageModel();
             languageDic[languageName].languageName = languageName;
           }
-          languageDic[languageName].addCompiler(compilerList[i]);
+          languageDic[languageName].addCompiler(compiler);
         }
         this.model.languages = Object.keys(languageDic).map(
           key => languageDic[key]
@@ -85,8 +85,8 @@ export class CompilerComponent {
 
           (() => {
             for (const l of this.model.languages.map((lang, index) => ({
-              lang,
-              index
+              index,
+              lang
             }))) {
               for (const c of l.lang.compilers.map((compiler, index) => ({
                 compiler,

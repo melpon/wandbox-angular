@@ -4,9 +4,9 @@ import { CompileResultModel, ShareResultModel } from "../compile/compile.model";
 import {} from "./compiler-result.model";
 
 @Component({
-  selector: "compile-result-tab",
-  templateUrl: "./compile-result-tab.component.html",
-  styleUrls: ["./compile-result-tab.component.css"]
+  selector: "sg-compile-result-tab",
+  styleUrls: ["./compile-result-tab.component.css"],
+  templateUrl: "./compile-result-tab.component.html"
 })
 export class CompileResultTabComponent {
   @Input() public results: CompileResultModel[];

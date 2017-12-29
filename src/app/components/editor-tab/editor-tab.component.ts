@@ -1,22 +1,22 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import * as rxjs from "rxjs/Rx";
 import { EditorConfigModel } from "../editor/editor.model";
-import { TabChangedEvent, TabModel } from "./editor-tab.model";
+import { ITabChangedEvent, TabModel } from "./editor-tab.model";
 
 import { PermlinkService } from "../api/permlink.service";
 import { LocalStorageService } from "../common/local-storage.service";
 
 @Component({
-  selector: "editor-tab",
-  templateUrl: "./editor-tab.component.html",
-  styleUrls: ["./editor-tab.component.css"]
+  selector: "sg-editor-tab",
+  styleUrls: ["./editor-tab.component.css"],
+  templateUrl: "./editor-tab.component.html"
 })
 export class TabComponent {
   @Input() public config: EditorConfigModel;
   @Input() public tabs: TabModel[];
   @Input() public activeIndex;
 
-  @Output() public changed = new EventEmitter<TabChangedEvent>();
+  @Output() public changed = new EventEmitter<ITabChangedEvent>();
   @Output() public compileCommand = new EventEmitter<void>();
 
   private tabCount = 1;
@@ -132,8 +132,8 @@ export class TabComponent {
     this.tabs.forEach(v => (v.isActive = false));
     this.tabs[activateIndex].isActive = true;
     this.changed.emit({
-      index: activateIndex,
-      data: this.tabs[activateIndex]
+      data: this.tabs[activateIndex],
+      index: activateIndex
     });
     console.log("active tab:", this.activeIndex);
   }

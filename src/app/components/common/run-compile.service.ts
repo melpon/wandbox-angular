@@ -1,17 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs/Subject";
-import { CompileRequest } from "../api/compile.model";
+import { ICompileRequest } from "../api/compile.model";
 import { PostCompileService } from "../api/compile.service";
 import {
-  CheckboxOption,
   CompilerModel,
+  ICheckboxOption,
   LanguageModel
 } from "../compiler/compiler.model";
 import { TabModel } from "../editor-tab/editor-tab.model";
 
 @Injectable()
 export class RunCompileService {
-  private runCompileSubject = new Subject<RunCompileModel>();
+  private runCompileSubject = new Subject<IRunCompileModel>();
 
   constructor(private compileApi: PostCompileService) {}
 
@@ -85,7 +85,7 @@ export class RunCompileService {
     const selectCompiler = language.selectedCompiler;
     const compiler = selectCompiler.name;
     const options = selectCompiler.options
-      .filter(v => v.type !== "checkbox" || (v.item as CheckboxOption).checked)
+      .filter(v => v.type !== "checkbox" || (v.item as ICheckboxOption).checked)
       .filter(v => v.item.value.length > 0)
       .map(v => v.item.value)
       .join(",");
@@ -108,20 +108,20 @@ export class RunCompileService {
 
     return {
       code,
-      compiler,
-      options,
-      save,
-      stdin,
       codes,
+      compiler,
       "compiler-option-raw": compilerOptionRaw,
-      "runtime-option-raw": runtimeOptionRaw
-    } as CompileRequest;
+      options,
+      "runtime-option-raw": runtimeOptionRaw,
+      save,
+      stdin
+    } as ICompileRequest;
   }
 }
 
-interface RunCompileModel {
+interface IRunCompileModel {
   language: string;
-  request: CompileRequest;
+  request: ICompileRequest;
   compiler: CompilerModel;
   tabs: TabModel[];
 }

@@ -1,7 +1,7 @@
-export interface CompileRequest {
+export interface ICompileRequest {
   compiler: string;
   code: string;
-  codes: CodeListModel[];
+  codes: ICodeListModel[];
   options: string;
   stdin: string;
   save: boolean;
@@ -9,12 +9,12 @@ export interface CompileRequest {
   "runtime-option-raw": string;
 }
 
-export interface CodeListModel {
+export interface ICodeListModel {
   code: string;
   file: string;
 }
 
-export interface CompileResponse {
+export interface ICompileResponse {
   status: string;
   signal: string;
   compiler_output: string;

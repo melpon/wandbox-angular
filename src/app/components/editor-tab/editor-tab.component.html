@@ -1,6 +1,6 @@
 <div class="wandbox-editor">
     <ul id="wandbox-editor-header" class="nav nav-tabs" role="tablist">
-        <li *ngFor="let tab of tabs; let i=index;" [class.active]="tab.isActive" (click)="tabClick(i)">
+        <li *ngFor="let tab of tabs; trackBy:index; let i=index;" [class.active]="tab.isActive" (click)="tabClick(i)">
             <a class="wandbox-editor-name-tab" [class.first]="i === 0" role="tab" data-toggle="tab">
                 <i class="glyphicon glyphicon-file"></i>
                 <span *ngIf="!tab.editing" class="wandbox-renamable" (dblclick)="editTab(i, fileNameInput)">{{ tab.fileName }}</span>

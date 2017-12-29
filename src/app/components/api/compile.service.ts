@@ -3,14 +3,14 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { environment } from "../../../environments/environment";
-import { Action, PostEventSource } from "../../utils/PostEventSource";
-import { CompileRequest, CompileResponse } from "./compile.model";
+import { IAction, PostEventSource } from "../../utils/PostEventSource";
+import { ICompileRequest, ICompileResponse } from "./compile.model";
 
 @Injectable()
 export class PostCompileService {
   constructor(private http: HttpClient) {}
 
-  public postCompile$(param: CompileRequest): Observable<CompileResponse> {
+  public postCompile$(param: ICompileRequest): Observable<ICompileResponse> {
     const headers = new HttpHeaders();
     headers.set("Content-Type", "application/json");
     headers.set("Cache-Control", "no-cache");
@@ -19,7 +19,7 @@ export class PostCompileService {
     }) as any;
   }
 
-  public postCompileEventStream$(param: CompileRequest): Observable<Action> {
+  public postCompileEventStream$(param: ICompileRequest): Observable<IAction> {
     const pes = new PostEventSource(environment.baseUrl + "compile");
     pes.post(param);
     return pes.eventSource;

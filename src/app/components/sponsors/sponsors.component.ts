@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "wandbox-sponsors",
-  templateUrl: "./sponsors.component.html",
-  styleUrls: ["./sponsors.component.css"]
+  selector: "sg-wandbox-sponsors",
+  styleUrls: ["./sponsors.component.css"],
+  templateUrl: "./sponsors.component.html"
 })
 export class SponsorsComponent implements OnInit {
-  constructor() {}
-
-  public ngOnInit() {}
+  public ngOnInit() {
+    return undefined;
+  }
 }
