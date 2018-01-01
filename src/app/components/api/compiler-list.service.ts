@@ -11,6 +11,6 @@ export class CompilerListAPIService {
   constructor(private http: HttpClient) {}
 
   public fetch$(): Observable<ICompilerInfo[]> {
-    return this.http.get(environment.baseApiUrl + "list.json") as any;
+    return this.http.get<ICompilerInfo[]>(environment.baseApiUrl + "list.json");
   }
 }

@@ -13,9 +13,9 @@ export class PostCompileService {
     const headers = new HttpHeaders();
     headers.set("Content-Type", "application/json");
     headers.set("Cache-Control", "no-cache");
-    return this.http.post(environment.baseApiUrl + "compile.json", param, {
+    return this.http.post<ICompileResponse>(environment.baseApiUrl + "compile.json", param, {
       headers
-    }) as any;
+    });
   }
 
   public postCompileEventStream$(param: ICompileRequest): Observable<IAction> {
