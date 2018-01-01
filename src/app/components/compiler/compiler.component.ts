@@ -4,6 +4,9 @@ import { PermlinkService } from "../api/permlink.service";
 import { LocalStorageService } from "../common/local-storage.service";
 import {
   CompilerComponentModel,
+  CompilerModel,
+  CompilerOptionModel,
+  ISelectBoxOption,
   LanguageModel,
   OptionType
 } from "./compiler.model";
@@ -188,6 +191,22 @@ export class CompilerComponent {
    */
   public clickLoadTemplate(templateName: string) {
     this.service.loadTemplateNext(templateName);
+  }
+
+  public compilerTrackBy(_index: number, item: CompilerModel): string {
+    return item.name;
+  }
+  public languageTrackBy(_index: number, item: LanguageModel): string {
+    return item.languageName;
+  }
+  public compilerOptionTrackBy(
+    index: number,
+    _item: CompilerOptionModel
+  ): number {
+    return index;
+  }
+  public selectBoxTrackBy(index: number, _item: ISelectBoxOption): number {
+    return index;
   }
 
   private generateCompileOptionStorageKey(language: LanguageModel) {

@@ -163,4 +163,8 @@ export class TabComponent {
   public onCompileCommand() {
     this.compileCommand.emit();
   }
+
+  public tabTrackBy(index: number, _item: TabModel) {
+    return index;
+  }
 }

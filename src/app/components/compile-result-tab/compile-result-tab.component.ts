@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { RunCompileService } from "../common/run-compile.service";
-import { CompileResultModel, ShareResultModel } from "../compile/compile.model";
-import {} from "./compiler-result.model";
+import {
+  CompileResultModel,
+  EventOutput,
+  ShareResultModel
+} from "../compile/compile.model";
+import { TabModel } from "../editor-tab/editor-tab.model";
 
 @Component({
   selector: "wandbox-compile-result-tab",
@@ -64,5 +68,18 @@ export class CompileResultTabComponent {
         shareResult.isFetched = true;
         this.selectedResult.shareResult = shareResult;
       });
+  }
+
+  public compileResultTrackBy(
+    index: number,
+    _item: CompileResultModel
+  ): number {
+    return index;
+  }
+  public tabTrackBy(index: number, _item: TabModel): number {
+    return index;
+  }
+  public lineTrackBy(index: number, _item: EventOutput): number {
+    return index;
   }
 }

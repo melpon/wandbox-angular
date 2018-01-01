@@ -8,7 +8,7 @@ export interface ICompilerInfo {
   provider: number;
   templates: string[];
   version: string;
-  switches: ICompilerFlagInfo[] | ICompilerFlagSelectionInfo[];
+  switches: Array<ICompilerFlagInfo | ICompilerFlagSelectionInfo>;
 }
 
 export interface ICompilerFlagInfo {

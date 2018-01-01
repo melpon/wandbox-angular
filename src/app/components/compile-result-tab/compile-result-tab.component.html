@@ -1,7 +1,7 @@
 <div id="result-container" *ngIf="results.length > 0">
     <div class="tabbable tabs-left">
         <ul class="nav nav-tabs">
-            <li *ngFor="let result of results; trackBy:result.tabName; let i=index;" [class.active]="i === activeIndex" (click)="activationResultTab(i)">
+            <li *ngFor="let result of results; trackBy:compileResultTrackBy; let i=index;" [class.active]="i === activeIndex" (click)="activationResultTab(i)">
                 <button type="button" class="close" (click)="clickRemoveTab(i)">×</button>
                 <a data-toggle="tab">#{{ result.tabName }}</a>
             </li>
@@ -36,7 +36,7 @@
                             </div>
                             <div class="wandbox-resultwindow-code" *ngIf="selectedResult.resultFetched">
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li *ngFor="let tab of selectedResult.tabs; trackBy:index; let i=index;" [class.active]="selectedResult.activeSourceTabIndex === i" (click)="activationSourceTab(i)">
+                                    <li *ngFor="let tab of selectedResult.tabs; trackBy:tabTrackBy; let i=index;" [class.active]="selectedResult.activeSourceTabIndex === i" (click)="activationSourceTab(i)">
                                         <a class="" href="#wandbox-resultwindow-code-body-1-0" role="tab" data-toggle="tab">
                                             <i class="glyphicon glyphicon-file"></i>
                                             <span *ngIf="i !== 0">{{ tab.fileName }}</span>
@@ -59,7 +59,7 @@
             <div class="output-window" *ngIf="selectedResult != null">
 
                 <ng-container *ngIf="selectedResult.eventSource">
-                    <pre *ngFor="let line of selectedResult.outputLines; trackBy:index" class="{{line.type}}">{{ line.message }}</pre>
+                    <pre *ngFor="let line of selectedResult.outputLines; trackBy:lineTrackBy" class="{{line.type}}">{{ line.message }}</pre>
                 </ng-container>
                 <ng-container *ngIf="!selectedResult.eventSource">
                     <!-- <pre class="Control">Start</pre> -->
