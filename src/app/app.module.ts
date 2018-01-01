@@ -1,10 +1,7 @@
-import { APP_BASE_HREF } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
-import { Component, Directive, NgModule, Pipe } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { NgModel } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
-import { RouterModule } from "@angular/router";
 
 import { AppComponent } from "./app.component";
 // import { RouterRootComponent } from './root.component';
@@ -57,7 +54,6 @@ import { CompilerService } from "./components/compiler/compiler.service";
     PostCompileService,
     LocalStorageService,
     PermlinkService
-    // [{ provide: APP_BASE_HREF, useValue: '' }],
   ]
 })
 export class AppModule {}

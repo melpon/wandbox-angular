@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import "rxjs/add/operator/mergeMap";
-import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 
 import { ICompilerInfo } from "../api/compiler-list.model";

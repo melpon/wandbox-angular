@@ -51,7 +51,7 @@ export class CompileResultTabComponent {
     ) {
       return;
     }
-    this.selectedResult.shareResult = new ShareResultModel();
+    const shareResult = new ShareResultModel();
     this.compileService
       .run$(
         this.selectedResult.stdin,
@@ -60,8 +60,9 @@ export class CompileResultTabComponent {
         true
       )
       .subscribe(res => {
-        this.selectedResult.shareResult.url = res.permlink;
-        this.selectedResult.shareResult.isFetched = true;
+        shareResult.url = res.permlink;
+        shareResult.isFetched = true;
+        this.selectedResult.shareResult = shareResult;
       });
   }
 }

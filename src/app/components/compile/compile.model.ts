@@ -20,7 +20,7 @@ export class CompileResultModel {
   public showCode: boolean;
   public resultFetched = false;
 
-  public shareResult: ShareResultModel = null;
+  public shareResult: ShareResultModel | null = null;
 
   get languageName() {
     return this.languageInfo.languageName;
@@ -46,7 +46,7 @@ export class CompileComponentModel {
 
 export class ShareResultModel {
   public isFetched = false;
-  public url: string;
+  public url?: string;
 }
 
 export class EventOutput {

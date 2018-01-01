@@ -1,4 +1,6 @@
-const EDITOR_MODE_MAPPING = {
+const EDITOR_MODE_MAPPING: {
+  [index: string]: string;
+} = {
   "Bash script": "text/x-sh",
   C: "text/x-csrc",
   "C#": "text/x-csharp",
@@ -29,7 +31,7 @@ const EDITOR_MODE_MAPPING = {
   "Vim script": "text/x-csrc"
 };
 
-export function mime(languageName: string) {
+export function mime(languageName: string): string {
   return EDITOR_MODE_MAPPING[languageName] || "";
 }
 

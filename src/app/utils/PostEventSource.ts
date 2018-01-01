@@ -1,11 +1,10 @@
-import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 
 export class PostEventSource {
   private subject = new Subject<IAction>();
   private data: string[] = [];
   private chache = "";
-  private lastEventId: string = null;
+  private lastEventId: string | null = null;
   private readyState: EV_READY_STATE = EV_READY_STATE.CONNECTING;
   private xhr: XMLHttpRequest;
 
@@ -46,15 +45,15 @@ export class PostEventSource {
           const payloadIndex = responseSrc.lastIndexOf("\n");
           const responseText = responseSrc.substr(0, payloadIndex);
           const parts = responseText.substr(this.chache.length).split("\n");
-          let eventType = "message";
+          // let eventType = "message";
           this.chache = responseText;
 
           console.log("event src", parts);
           for (const line of parts) {
             if (line.indexOf("event") === 0) {
-              eventType = line.replace(/event:? ?/, "");
+              // eventType = line.replace(/event:? ?/, "");
             } else if (line.indexOf("retry") === 0) {
-              const retry = parseInt(line.replace(/retry:? ?/, ""), 10);
+              // const retry = parseInt(line.replace(/retry:? ?/, ""), 10);
               // if (!isNaN(retry)) { interval = retry; }
             } else if (line.indexOf("data") === 0) {
               // push payload.
@@ -71,13 +70,14 @@ export class PostEventSource {
                 const [type] = messagePart.splice(0, 1);
                 const message = messagePart.join();
                 this.subject.next({
-                  lastEventId: this.lastEventId,
+                  lastEventId:
+                    this.lastEventId == null ? undefined : this.lastEventId,
                   messageType: type,
                   payload: message,
                   type: "message"
                 });
                 this.data = [];
-                eventType = "message";
+                // eventType = "message";
                 if (type === "Control" && message === "Finish") {
                   this.subject.complete();
                 }

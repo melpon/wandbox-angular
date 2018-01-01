@@ -10,8 +10,12 @@
     "tslint-plugin-prettier"
   ],
   "rules": {
+    // override tslint:recommended
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
+
     "no-console": false,
     "max-classes-per-file": false,
+    "no-reference": false,
 
     "angular-whitespace": [true, "check-interpolation", "check-semicolon"],
     "banana-in-box": true,

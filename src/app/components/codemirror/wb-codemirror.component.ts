@@ -1,5 +1,3 @@
-declare let CodeMirror;
-
 import {
   AfterViewInit,
   Component,
@@ -9,6 +7,7 @@ import {
   Output,
   ViewChild
 } from "@angular/core";
+import * as CodeMirror from "codemirror";
 
 import { EditorConfigModel } from "../editor/editor.model";
 import { EditorService } from "../editor/editor.service";
@@ -32,23 +31,27 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
 
   @Output() public compileCommand = new EventEmitter<void>();
 
-  @ViewChild("host") public host;
+  @ViewChild("host") public host: any;
 
-  private codemirror: CodeMirror.Editor = null;
+  private codemirror: CodeMirror.Editor | null = null;
 
-  constructor(private service: EditorService, private element: ElementRef) {
+  constructor(/*private*/ service: EditorService, private element: ElementRef) {
     // apply change config.
     service.changeConfig$.filter(v => v.name !== "expand").subscribe(v => {
-      this.config[v.name] = v.value;
-      this.codemirror.setOption(v.name, v.value);
-      this.codemirror.refresh();
+      if (this.codemirror != null) {
+        this.config[v.name] = v.value;
+        this.codemirror.setOption(v.name, v.value);
+        this.codemirror.refresh();
+      }
     });
 
     // set tab data
     service.changeEditorTab$.subscribe(v => {
-      this.value = v;
-      this.codemirror.setValue(v);
-      this.codemirror.refresh();
+      if (this.codemirror != null) {
+        this.value = v;
+        this.codemirror.setValue(v);
+        this.codemirror.refresh();
+      }
     });
   }
 
@@ -61,41 +64,48 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
   }
 
   public clearHistory() {
-    this.codemirror.getDoc().clearHistory();
+    if (this.codemirror != null) {
+      this.codemirror.getDoc().clearHistory();
+    }
   }
 
   private codemirrorInit(config: EditorConfigModel) {
-    this.codemirror = CodeMirror.fromTextArea(this.host.nativeElement, config);
-    this.codemirror.setValue(this.value);
-    this.codemirror.on("change", () => {
-      this.value = this.codemirror.getValue();
+    const codemirror: CodeMirror.Editor = CodeMirror.fromTextArea(
+      this.host.nativeElement,
+      config
+    );
+    this.codemirror = codemirror;
+
+    codemirror.setValue(this.value);
+    codemirror.on("change", () => {
+      this.value = codemirror.getValue();
       this.change.emit(this.value);
     });
 
-    this.codemirror.on("focus", () => {
+    codemirror.on("focus", () => {
       this.focus.emit();
     });
 
-    this.codemirror.on("blur", () => {
+    codemirror.on("blur", () => {
       this.blur.emit();
     });
 
     // definition shortcut key.
-    this.codemirror.setOption("extraKeys", {
-      "Cmd-Enter": cm => {
+    codemirror.setOption("extraKeys", {
+      "Cmd-Enter": (_cm: CodeMirror.Editor) => {
         this.compileCommand.emit();
       },
-      "Ctrl-Enter": cm => {
+      "Ctrl-Enter": (_cm: CodeMirror.Editor) => {
         this.compileCommand.emit();
       },
-      "Ctrl-Shift-T": cm => {
+      "Ctrl-Shift-T": (_cm: CodeMirror.Editor) => {
         console.log("hogehoge");
       },
-      "Shift-Tab": cm => {
+      "Shift-Tab": (cm: CodeMirror.Editor) => {
         cm.execCommand("indentLess");
       },
-      Tab: cm => {
-        if (cm.somethingSelected()) {
+      Tab: (cm: CodeMirror.Editor) => {
+        if (cm.getDoc().somethingSelected()) {
           cm.execCommand("indentMore");
           return;
         }
@@ -104,11 +114,14 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
           cm.execCommand("insertTab");
         } else {
           const tabSize = cm.getOption("tabSize");
-          const spaces = Array(cm.getOption("tabSize") + 1).join(" ");
-          cm.replaceSelection(spaces, "end", "+input");
+          const spaces = Array(tabSize + 1).join(" ");
+          // @type/codemirror replaceSelection is buggy.
+          // replaceSelection has three arguments but @type/codemirror defines as two arguments.
+          // @ts-ignore: Expected 1-2 arguments, but got 3.
+          cm.getDoc().replaceSelection(spaces, "end", "+input");
         }
       }
     });
-    this.codemirror.refresh();
+    codemirror.refresh();
   }
 }

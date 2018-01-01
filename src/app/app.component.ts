@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { Observable } from "rxjs/Observable";
 import { RunCompileService } from "./components/common/run-compile.service";
 
 @Component({

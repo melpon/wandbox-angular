@@ -1,8 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
-import { Observer } from "rxjs/Observer";
 import { Subject } from "rxjs/Subject";
 
 import { environment } from "../../../environments/environment";
@@ -11,8 +9,8 @@ import { IPermlinkResponse } from "./permlink.model";
 @Injectable()
 export class PermlinkService {
   private fetching = false;
-  private resultCache: IPermlinkResponse = null;
-  private fetchObserver: Observable<IPermlinkResponse> = null;
+  private resultCache: IPermlinkResponse | null = null;
+  // private fetchObserver: Observable<IPermlinkResponse> | null = null;
 
   private linkId: string;
 

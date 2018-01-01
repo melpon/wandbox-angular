@@ -1,12 +1,9 @@
 import { Component } from "@angular/core";
-import { Observable } from "rxjs/Observable";
 import { environment } from "../../../environments/environment";
-import { ICompilerInfo } from "../api/compiler-list.model";
 import { PermlinkService } from "../api/permlink.service";
 import { LocalStorageService } from "../common/local-storage.service";
 import {
   CompilerComponentModel,
-  CompilerModel,
   LanguageModel,
   OptionType
 } from "./compiler.model";
@@ -47,7 +44,7 @@ export class CompilerComponent {
 
         if (this.permlink.requested) {
           this.permlink.checkPermlink$.subscribe(res => {
-            const { parameter, result } = res;
+            const { parameter } = res;
             const compilerInfo = parameter["compiler-info"];
 
             let langIndex = this.model.languages.findIndex(
@@ -93,7 +90,7 @@ export class CompilerComponent {
                 index
               }))) {
                 if (c.compiler.name === defaultCompiler) {
-                  this.selectLanguage(l.index, c.index, null);
+                  this.selectLanguage(l.index, c.index);
                   // break multiple loop
                   return;
                 }
@@ -102,7 +99,7 @@ export class CompilerComponent {
           })();
         }
       },
-      err => {
+      _err => {
         this.model.errorMessage = "failed loading compiler list!";
       }
     );
@@ -135,7 +132,7 @@ export class CompilerComponent {
       const compiler = this.storage.getValue("compiler");
       // find index of saved compiler key.
       let compilerIndex = this.selectedLanguage.compilers.findIndex(
-        v =>
+        _v =>
           this.generateCompileOptionStorageKey(this.selectedLanguage) ===
           compiler
       );
@@ -175,7 +172,7 @@ export class CompilerComponent {
    * @param {OptionType} item
    * @memberof CompilerComponent
    */
-  public changeOption(index: number, item: OptionType) {
+  public changeOption(_index: number, _item: OptionType) {
     const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage);
     this.storage.setValue(
       keyName,

@@ -3,18 +3,27 @@
     "compilerOptions": {
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
-        "noImplicitAny": false,
-        "declaration": false,
-        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "module": "commonjs",
         "target": "es5",
-        "typeRoots": [
-            "node_modules/@types"
+        "types": [
+          "codemirror"
         ],
         "lib": [
             "es2017",
             "dom"
         ]
-    }
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }

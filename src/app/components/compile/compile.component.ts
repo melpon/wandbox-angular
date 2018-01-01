@@ -2,16 +2,14 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild
 } from "@angular/core";
-import { PostCompileService } from "../api/compile.service";
 import { PermlinkService } from "../api/permlink.service";
 import { RunCompileService } from "../common/run-compile.service";
 import { CompileResultTabComponent } from "../compile-result-tab/compile-result-tab.component";
 import { LanguageModel } from "../compiler/compiler.model";
-import { ITabChangedEvent, TabModel } from "../editor-tab/editor-tab.model";
+import { TabModel } from "../editor-tab/editor-tab.model";
 import { CompileComponentModel, CompileResultModel } from "./compile.model";
 
 @Component({
@@ -126,8 +124,8 @@ export class CompileComponent {
 
               case "message":
                 result.outputLines.push({
-                  message: event.payload,
-                  type: event.messageType
+                  message: event.payload!,
+                  type: event.messageType!
                 });
                 break;
             }

@@ -1,14 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs/Observable";
-import * as rxjs from "rxjs/Rx";
 
 import { PermlinkService } from "../api/permlink.service";
 import { mime } from "../common/language-mime.util";
 import { LocalStorageService } from "../common/local-storage.service";
-import { RunCompileService } from "../common/run-compile.service";
 import { CompileComponent } from "../compile/compile.component";
-import { LanguageModel } from "../compiler/compiler.model";
 import { CompilerService } from "../compiler/compiler.service";
 import { ITabChangedEvent, TabModel } from "../editor-tab/editor-tab.model";
 import { EditorComponentModel } from "./editor.model";
@@ -50,7 +45,7 @@ export class EditorComponent implements OnInit {
     this.permlink.checkPermlink$.subscribe(res => {
       console.log(res);
 
-      const { parameter, result } = res;
+      const { parameter } = res;
 
       this.model.tabs = [];
 

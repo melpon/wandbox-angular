@@ -5,7 +5,11 @@ export class LocalStorageService {
   private storage = localStorage;
 
   public getValue(key: string) {
-    return JSON.parse(this.storage.getItem(key));
+    const item: string | null = this.storage.getItem(key);
+    if (item == null) {
+      return null;
+    }
+    return JSON.parse(item);
   }
 
   public setValue<T>(key: string, value: T) {
@@ -13,7 +17,7 @@ export class LocalStorageService {
   }
 
   public removeValue(key: string) {
-    this.storage.setItem(key, null);
+    this.storage.setItem(key, "null");
   }
 
   public hasValue(key: string) {

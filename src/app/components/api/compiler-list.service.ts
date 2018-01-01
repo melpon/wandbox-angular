@@ -4,11 +4,6 @@ import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 
 import { environment } from "../../../environments/environment";
-import {
-  CompilerModel,
-  LanguageModel,
-  OptionType
-} from "../compiler/compiler.model";
 import { ICompilerInfo } from "./compiler-list.model";
 
 @Injectable()

@@ -14,7 +14,7 @@ import { LocalStorageService } from "../common/local-storage.service";
 export class TabComponent {
   @Input() public config: EditorConfigModel;
   @Input() public tabs: TabModel[];
-  @Input() public activeIndex;
+  @Input() public activeIndex: number;
 
   @Output() public changed = new EventEmitter<ITabChangedEvent>();
   @Output() public compileCommand = new EventEmitter<void>();

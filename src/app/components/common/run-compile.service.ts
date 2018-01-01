@@ -1,17 +1,13 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs/Subject";
+// import { Subject } from "rxjs/Subject";
 import { ICompileRequest } from "../api/compile.model";
 import { PostCompileService } from "../api/compile.service";
-import {
-  CompilerModel,
-  ICheckboxOption,
-  LanguageModel
-} from "../compiler/compiler.model";
+import { ICheckboxOption, LanguageModel } from "../compiler/compiler.model";
 import { TabModel } from "../editor-tab/editor-tab.model";
 
 @Injectable()
 export class RunCompileService {
-  private runCompileSubject = new Subject<IRunCompileModel>();
+  // private runCompileSubject = new Subject<IRunCompileModel>();
 
   constructor(private compileApi: PostCompileService) {}
 
@@ -76,7 +72,7 @@ export class RunCompileService {
     const codes =
       tabs.length > 1
         ? tabs
-            .filter((v, i) => i !== 0) // split of tabs head and later.
+            .filter((_v, i) => i !== 0) // split of tabs head and later.
             .map(v => ({
               code: v.editorContent,
               file: v.fileName
@@ -119,9 +115,9 @@ export class RunCompileService {
   }
 }
 
-interface IRunCompileModel {
-  language: string;
-  request: ICompileRequest;
-  compiler: CompilerModel;
-  tabs: TabModel[];
-}
+// interface IRunCompileModel {
+//   language: string;
+//   request: ICompileRequest;
+//   compiler: CompilerModel;
+//   tabs: TabModel[];
+// }
