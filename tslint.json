@@ -12,16 +12,14 @@
   "rules": {
     // override tslint:recommended
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
-
     "no-console": false,
     "max-classes-per-file": false,
-    "no-reference": false,
 
     "angular-whitespace": [true, "check-interpolation", "check-semicolon"],
     "banana-in-box": true,
     "templates-no-negated-async": true,
-    "directive-selector": [true, "attribute", "sg", "camelCase"],
-    "component-selector": [true, "element", "sg", "kebab-case"],
+    "directive-selector": [true, "attribute", "wandbox", "camelCase"],
+    "component-selector": [true, "element", "wandbox", "kebab-case"],
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
@@ -35,7 +33,7 @@
     "contextual-life-cycle": true,
     "trackBy-function": true,
     "use-pipe-transform-interface": true,
-    "pipe-naming": [true, "camelCase", "sg"],
+    "pipe-naming": [true, "camelCase", "wandbox"],
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "pipe-impure": true,

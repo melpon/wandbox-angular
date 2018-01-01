@@ -4,7 +4,7 @@ import { CompileResultModel, ShareResultModel } from "../compile/compile.model";
 import {} from "./compiler-result.model";
 
 @Component({
-  selector: "sg-compile-result-tab",
+  selector: "wandbox-compile-result-tab",
   styleUrls: ["./compile-result-tab.component.css"],
   templateUrl: "./compile-result-tab.component.html"
 })

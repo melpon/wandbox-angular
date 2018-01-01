@@ -7,7 +7,7 @@ import { PermlinkService } from "../api/permlink.service";
 import { LocalStorageService } from "../common/local-storage.service";
 
 @Component({
-  selector: "sg-editor-tab",
+  selector: "wandbox-editor-tab",
   styleUrls: ["./editor-tab.component.css"],
   templateUrl: "./editor-tab.component.html"
 })

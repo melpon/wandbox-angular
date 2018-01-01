@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "sg-wandbox-sponsors",
+  selector: "wandbox-sponsors",
   styleUrls: ["./sponsors.component.css"],
   templateUrl: "./sponsors.component.html"
 })

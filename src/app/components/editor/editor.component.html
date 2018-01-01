@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-10">
-        <sg-editor-tab (compileCommand)="onCompileCommand()" (changed)="tabChanged($event)" [tabs]="model.tabs" [config]="model.config" [activeIndex]="model.activeTabIndex"></sg-editor-tab>
+        <wandbox-editor-tab (compileCommand)="onCompileCommand()" (changed)="tabChanged($event)" [tabs]="model.tabs" [config]="model.config" [activeIndex]="model.activeTabIndex"></wandbox-editor-tab>
     </div>
     <div class="col-md-2" id="wandbox-editor-settings">
         <label>Editor settings:</label>
@@ -62,4 +62,4 @@
         </div>
     </div>
 </div>
-<sg-wandbox-compile [tabs]="model.tabs" [stdin]="model.stdin" [selectedLanguage]="model.selectedLanguage"></sg-wandbox-compile>
+<wandbox-compile [tabs]="model.tabs" [stdin]="model.stdin" [selectedLanguage]="model.selectedLanguage"></wandbox-compile>

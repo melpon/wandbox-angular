@@ -16,7 +16,7 @@
     </ul>
     <div class="clearfix"></div>
     <div id="wandbox-editor-content" class="tab-content">
-        <sg-wandbox-codemirror [config]="config" (compileCommand)="onCompileCommand()" (change)="tabChanged($event)" [value]="tabs[activeIndex].editorContent">
-        </sg-wandbox-codemirror>
+        <wandbox-codemirror [config]="config" (compileCommand)="onCompileCommand()" (change)="tabChanged($event)" [value]="tabs[activeIndex].editorContent">
+        </wandbox-codemirror>
     </div>
 </div>

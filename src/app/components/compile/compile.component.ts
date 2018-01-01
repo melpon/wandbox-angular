@@ -13,7 +13,7 @@ import { TabModel } from "../editor-tab/editor-tab.model";
 import { CompileComponentModel, CompileResultModel } from "./compile.model";
 
 @Component({
-  selector: "sg-wandbox-compile",
+  selector: "wandbox-compile",
   styleUrls: ["./compile.component.css"],
   templateUrl: "./compile.component.html"
 })

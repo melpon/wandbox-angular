@@ -11,7 +11,7 @@ import { EditorService } from "./editor.service";
 
 @Component({
   providers: [EditorService],
-  selector: "sg-wandbox-editor",
+  selector: "wandbox-editor",
   styleUrls: ["./editor.component.css"],
   templateUrl: "./editor.component.html"
 })

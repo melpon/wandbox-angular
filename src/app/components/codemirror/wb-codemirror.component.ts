@@ -13,7 +13,7 @@ import { EditorConfigModel } from "../editor/editor.model";
 import { EditorService } from "../editor/editor.service";
 
 @Component({
-  selector: "sg-wandbox-codemirror",
+  selector: "wandbox-codemirror",
   styleUrls: ["./wb-codemirror.component.css"],
   template: `
         <div class="wandbox-codemirror-container" [class.expand]="config.expand">

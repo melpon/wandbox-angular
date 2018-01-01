@@ -10,7 +10,7 @@ import {
 import { CompilerService } from "./compiler.service";
 
 @Component({
-  selector: "sg-wandbox-compiler",
+  selector: "wandbox-compiler",
   styleUrls: ["./compiler.component.css"],
   templateUrl: "./compiler.component.html"
 })
