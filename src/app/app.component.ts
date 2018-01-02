@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { RunCompileService } from "./components/common/run-compile.service";
+
+import timeago from "timeago.js";
 
 @Component({
   providers: [RunCompileService],
@@ -7,4 +9,9 @@ import { RunCompileService } from "./components/common/run-compile.service";
   styleUrls: ["./app.component.css"],
   templateUrl: "./app.component.html"
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  public ngOnInit() {
+    const timeAgo = timeago();
+    timeAgo.render(document.querySelectorAll('.time-ago'));
+  }
+}
