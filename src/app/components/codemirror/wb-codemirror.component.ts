@@ -7,10 +7,36 @@ import {
   Output,
   ViewChild
 } from "@angular/core";
-import * as CodeMirror from "codemirror";
-
 import { EditorConfigModel } from "../editor/editor.model";
 import { EditorService } from "../editor/editor.service";
+
+import * as CodeMirror from "codemirror";
+
+import 'codemirror/mode/clike/clike';
+import 'codemirror/mode/d/d';
+import 'codemirror/mode/ruby/ruby';
+import 'codemirror/mode/python/python';
+import 'codemirror/mode/perl/perl';
+import 'codemirror/mode/erlang/erlang';
+import 'codemirror/mode/haskell/haskell';
+import 'codemirror/mode/shell/shell';
+import 'codemirror/mode/lua/lua';
+import 'codemirror/mode/php/php';
+import 'codemirror/mode/commonlisp/commonlisp';
+import 'codemirror/mode/pascal/pascal';
+import 'codemirror/mode/rust/rust';
+import 'codemirror/mode/groovy/groovy';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/coffeescript/coffeescript';
+import 'codemirror/mode/swift/swift';
+import 'codemirror/mode/mllike/mllike';
+import 'codemirror/mode/go/go';
+import 'codemirror/mode/crystal/crystal';
+import 'codemirror/addon/search/searchcursor';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/dialog/dialog';
+import 'codemirror/keymap/vim';
+import 'codemirror/keymap/emacs';
 
 @Component({
   selector: "wandbox-codemirror",
