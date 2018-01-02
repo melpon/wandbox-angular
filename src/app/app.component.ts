@@ -12,6 +12,6 @@ import timeago from "timeago.js";
 export class AppComponent implements OnInit {
   public ngOnInit() {
     const timeAgo = timeago();
-    timeAgo.render(document.querySelectorAll('.time-ago'));
+    timeAgo.render(document.querySelectorAll(".time-ago"));
   }
 }
