@@ -10,6 +10,7 @@ import timeago from "timeago.js";
   templateUrl: "./app.component.html"
 })
 export class AppComponent implements OnInit {
+  public title: string = "Wandbox";
   public ngOnInit() {
     const timeAgo = timeago();
     timeAgo.render(document.querySelectorAll(".time-ago"));
