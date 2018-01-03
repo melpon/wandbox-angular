@@ -22,6 +22,8 @@ describe("CompileResultTabComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CompileResultTabComponent);
     component = fixture.componentInstance;
+    component.results = [];
+    component.activeIndex = 0;
     fixture.detectChanges();
   });
 
