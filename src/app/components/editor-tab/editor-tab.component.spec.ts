@@ -5,9 +5,9 @@ import { FormsModule } from "@angular/forms";
 import { PermlinkService } from "../api/permlink.service";
 import { WandboxCodemirrorComponent } from "../codemirror/wb-codemirror.component";
 import { LocalStorageService } from "../common/local-storage.service";
+import { EditorConfigModel } from "../editor/editor.model";
 import { EditorService } from "../editor/editor.service";
 import { TabComponent } from "./editor-tab.component";
-import { EditorConfigModel } from "../editor/editor.model";
 import { TabModel } from "./editor-tab.model";
 
 describe("TabComponent", () => {
