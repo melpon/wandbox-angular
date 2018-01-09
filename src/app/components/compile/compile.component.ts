@@ -100,63 +100,53 @@ export class CompileComponent {
     result.tabs = JSON.parse(JSON.stringify(this.tabs));
     result.stdin = this.stdin;
 
-    if (this.model.enableEventSource) {
-      result.eventSource = true;
-      const subscription = this.runCompile
-        .runOnEventSource$(this.stdin, this.tabs, this.selectedLanguage, false)
-        .subscribe(
-          event => {
-            console.log("compile", event);
-            switch (event.type) {
-              case "open":
-                break;
-              case "timeout":
-              case "error":
-              case "exception":
-                result.outputLines.push({
-                  message: "Finish",
-                  type: "Control"
-                });
-                result.resultFetched = true;
-                this.model.compiling = false;
-                subscription.unsubscribe();
-                break;
+    const subscription = this.runCompile
+      .runOnNDJSON$(this.stdin, this.tabs, this.selectedLanguage, false)
+      .subscribe(
+        event => {
+          console.log("compile", event);
+          switch (event.type) {
+            case "open":
+              break;
+            case "timeout":
+            case "error":
+            case "exception":
+              result.outputLines.push({
+                message: "Finish",
+                type: "Control"
+              });
+              result.resultFetched = true;
+              this.model.compiling = false;
+              subscription.unsubscribe();
+              break;
 
-              case "message":
-                result.outputLines.push({
-                  message: event.payload!,
-                  type: event.messageType!
-                });
-                break;
-            }
-          },
-          () => {
-            subscription.unsubscribe();
-            result.resultFetched = true;
-            this.model.compiling = false;
-          },
-          () => {
-            subscription.unsubscribe();
-            result.resultFetched = true;
-            this.model.compiling = false;
+            case "message":
+              if (result.outputLines.length > 0) {
+                const eventOutput =
+                  result.outputLines[result.outputLines.length - 1];
+                if (eventOutput.type === event.messageType!) {
+                  eventOutput.message += event.payload!;
+                  break;
+                }
+              }
+              result.outputLines.push({
+                message: event.payload!,
+                type: event.messageType!
+              });
+              break;
           }
-        );
-    } else {
-      result.eventSource = false;
-      this.runCompile
-        .run$(this.stdin, this.tabs, this.selectedLanguage, false)
-        .subscribe(res => {
-          result.programMessage = res.program_message;
-          result.programOutout = res.program_output;
-          result.compilerErrorMessage = res.compiler_error;
-          result.programErrorMessage = res.program_error;
-          result.signalMessage = res.signal;
-          result.status = +(res.status !== undefined ? res.status : -1);
-
+        },
+        () => {
+          subscription.unsubscribe();
           result.resultFetched = true;
           this.model.compiling = false;
-        });
-    }
+        },
+        () => {
+          subscription.unsubscribe();
+          result.resultFetched = true;
+          this.model.compiling = false;
+        }
+      );
   }
 
   public removeTab(index: number) {

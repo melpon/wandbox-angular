@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { environment } from "../../../environments/environment";
+import { NDJSON } from "../../utils/ndjson";
 import { IAction, PostEventSource } from "../../utils/PostEventSource";
 import { ICompileRequest, ICompileResponse } from "./compile.model";
 
@@ -26,5 +27,11 @@ export class PostCompileService {
     const pes = new PostEventSource(environment.baseUrl + "compile");
     pes.post(param);
     return pes.eventSource;
+  }
+
+  public postCompileNDJSON$(param: ICompileRequest): Observable<IAction> {
+    const ndjson = new NDJSON(environment.baseApiUrl + "compile.ndjson");
+    ndjson.post(param);
+    return ndjson.ndjson;
   }
 }

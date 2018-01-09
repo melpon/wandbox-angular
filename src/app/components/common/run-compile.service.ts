@@ -54,6 +54,27 @@ export class RunCompileService {
   }
 
   /**
+   * Post compile request and get response with NDJSON.
+   * NOTE: this method created observables must be unsubscribe when all process done.
+   *
+   * @param {string} stdin
+   * @param {Array<TabModel>} tabs
+   * @param {LanguageModel} language
+   * @param {boolean} save
+   * @memberof RunCompileService
+   */
+  public runOnNDJSON$(
+    stdin: string,
+    tabs: TabModel[],
+    language: LanguageModel,
+    save: boolean
+  ) {
+    return this.compileApi.postCompileNDJSON$(
+      this.createRequestParams(stdin, tabs, language, save)
+    );
+  }
+
+  /**
    * Create compile request params
    *
    * @param {string} stdin
