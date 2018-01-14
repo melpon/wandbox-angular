@@ -13,23 +13,22 @@ export class HeaderComponent implements OnInit {
     // TODO(melpon): ログイン処理やヘッダーの表示に関しては、別コンポーネントにする
     // ?session= なセッションがあれば、その値をローカルストレージに保存して、クエリ文字列を消しておく
     if (window.location.search.length != 0) {
-      /* FIXME(melpon): URL は IE だと使えないらしい
       const url = new URL(location.href);
-      url.searchParams.get("session");
-      */
+      const session = url.searchParams.get("session");
 
-      const qs = window.location.search.slice(1);
-      let params: {[key: string]: string} = {};
-      for (const param of qs.split("&")) {
-        const xs = param.split("=");
-        params[xs[0]] = xs[1];
+      if (session != null) {
+        this.storage.setValue("session", session);
       }
-      if (params["session"] != null) {
-        this.storage.setValue("session", params["session"]);
-      }
-      window.history.replaceState(null, null, window.location.pathname);
+
+      window.history.replaceState(null, document.title, url.pathname);
     }
 
     return undefined;
+  }
+  public getLoginURL() {
+    const url = new URL("https://github.com/login/oauth/authorize");
+    url.searchParams.set("client_id", "d097a8f338db3c15fe08");
+    url.searchParams.set("redirect_uri", "https://wandbox.org/test/login/github/callback?redirect_uri=http://localhost:4200/");
+    return url.href;
   }
 }
